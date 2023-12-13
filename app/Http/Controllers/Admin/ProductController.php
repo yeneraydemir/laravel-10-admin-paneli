@@ -27,4 +27,20 @@ class ProductController extends Controller
         return redirect()->back()->with('success','Ürün başarıyla kaydedildi');
     }
     
+    public function edit($id) {
+        $product = Product::findOrFail($id);
+
+        return view('admin.products.edit', compact('product'));
+}
+        public function update(Request $request, $id) {
+            $data = $request->all();
+            $data['is_featured'] = $request->boolean('is_featured');
+            $data['is_published'] = $request->boolean('is_published');
+            Product::findOrFail($id)->update($data);
+            return redirect()->back()->with('success', 'Ürün Başarıyla Güncellendi');
+        }
+        public function destroy($id) {
+            Product::findOrFail($id)->delete();
+            return redirect()->back()->with('success','Başarıyla Silindi');
+        }
 }

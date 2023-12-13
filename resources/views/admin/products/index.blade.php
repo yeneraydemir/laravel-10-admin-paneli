@@ -4,6 +4,14 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
+    <div class="row">
+        <div class="col-6">
+<h1 class="h3 mb-2 text-gray-800">Ürünler</h1>
+<p class="mb-4">Bu sayfada ürünlerin listesi bulunmaktadır.</p>
+        </div>
+        <div class="col-6 d-flex align-items-center justify-content-end">        
+            <a href="{{route('admin.products.create')}}" class="btn btn-primary"> Ürün Ekle </a>
+    </div>
     <h1 class="h3 mb-2 text-gray-800">Ürünler</h1>
     <p class="mb-4">Bu sayfada ürünlerin listesi bulunmaktadır.</p>
 
@@ -23,7 +31,8 @@
                             <th>İndirimli Fiyat</th>
                             <th>Stok Adedi</th>
                             <th>Oluşturulma Tarihi</th>
-                            <th>Detay</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -34,7 +43,8 @@
                             <th>İndirimli Fiyat</th>
                             <th>Stok Adedi</th>
                             <th>Oluşturulma Tarihi</th>
-                            <th>Detay</th>
+                            <th>Düzenle</th>
+                            <th>Sil</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -46,10 +56,8 @@
                                 <td>{{$product->discount_price}}</td>
                                 <td>{{$product->stock_qty}}</td>
                                 <td>{{$product->created_at->format('d/m/Y H:i:s')}}</td>
-                                @if (false)
-                                    <td><a href="{{route('admin.users.show', $user->id)}}" class="btn btn-primary">Detay</a></td>
-                                @endif
-
+                                <td><a href="{{route('admin.products.edit', $product->id)}}" class="btn btn-primary">Düzenle</a></td>
+                                <td><a href="{{route('admin.products.destroy', $product->id)}}" class="btn btn-danger">Sil</a></td>
                             </tr>
                         @endforeach
 

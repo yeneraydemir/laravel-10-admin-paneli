@@ -32,3 +32,8 @@ Route::post('/admin/kullanicilar/{user}', [UserController::class, 'updatePermiss
 Route::get('/admin/urunler', [ProductController::class, 'index'])->name('admin.products.index')->middleware('auth');
 Route::get('/admin/urunler/ekle', [ProductController::class, 'create'])->name('admin.products.create')->middleware('auth');
 Route::post('/admin/urunler/ekle', [ProductController::class, 'store'])->name('admin.products.store')->middleware('auth');
+Route::get('/admin/urunler/duzenle/{id}', [ProductController::class, 'edit'])->name('admin.products.edit')->middleware('auth');
+
+Route::post('/admin/urunler/duzenle/{id}', [ProductController::class, 'update'])->name('admin.products.update')->middleware('auth');
+Route::get('/admin/urunler/sil/{id}', [ProductController::class, 'destroy'])->name('admin.products.destroy')->middleware('auth');
+
