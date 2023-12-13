@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 
 class UserSeeder extends Seeder
@@ -44,7 +46,60 @@ class UserSeeder extends Seeder
         'title' =>'E-Ticaret Yöneticisi',
         'description'=> 'E-Ticaret Yönetimini Sağlar',
     ]);
+// Yetkiler Blog
+        $permissions['blog-yoneticisi'] = [
+            [
+                'title'=> 'Yazilari Goruntuleyebilir',
+                'description'=> 'Tum Yazilari Goruntuleyebilir',                
+            ],
+            [
+                'title'=> 'Yazilari Duzenleyebilir',
+                'description'=> 'Tum Yazilari Goruntuleyebilir',                
+            ],
+            [
+                'title'=> 'Yazi Kategorilerini Goruntuleyebilir',
+                'description'=> 'Tum Yazilari Goruntuleyebilir',                
+            ],
+            [
+                'title'=> 'Yazi Kategorilerini Duzenleyebilir',
+                'description'=> 'Tum Yazilari Goruntuleyebilir',                
+            ],
+              ];
+// Yetkiler E-Ticaret
+        $permissions['e-ticaret-yoneticisi'] = [
+            [
+                'title'=> 'Siparisleri Goruntuleyebilir',
+                'description'=> 'Tum Siparisleri Goruntuleyebilir',                
+            ],
+            [
+                'title'=> 'Siparisleri Duzenleyebilir',
+                'description'=> 'Tum Siparisleri Goruntuleyebilir',                
+            ],
+            [
+                'title'=> 'Urunleri gorebilir',
+                'description'=> 'Tum Urunleri Goruntuleyebilir',                
+            ],
+            [
+                'title'=> 'Urunleri Duzenleyebilir',
+                'description'=> 'Tum Urunleri Goruntuleyebilir',                
+            ],
+              ];
 
+              foreach ($permissions as $key =>&$permission) {
+                $role = Role::where('name', $key)-> first();
+                foreach ($permission as $p) {
+                    $newPermission = Permission::updateOrCreate (
+                        ['name'=> Str::slug($p['title'])],
+                        [
+                        'name'=> Str::slug($p['title']),
+                        'title'=> $p['title'],
+                        'description'=> $p['description'],
+                        ]
+                    );
+
+                    $role->givePermissionTo($newPermission);
+                }
+              }
 
       $user =  User::updateOrCreate(
             [

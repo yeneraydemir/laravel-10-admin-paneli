@@ -56,8 +56,9 @@
                 Interface
             </div>
 
-            @hasanyrole(['yonetici', 'e-ticaret-yoneticisi'])
-            <!-- Nav Item - Pages Collapse Menu -->
+            {{-- @hasanyrole(['yonetici', 'e-ticaret-yoneticisi'])  burada yazan sadece yetkiye özel anlamına geliyor.--}}
+            <!-- E-Ticaret -->
+            @canany(['urunleri-gorebilir','siparisleri-goruntuleyebilir'])
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -66,16 +67,22 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <h6 class="collapse-header">E-Ticaret Yönetimi</h6>
+                        @can('urunleri-gorebilir')
+                        <a class="collapse-item" href="buttons.html">Ürünler</a>
+                        @endcan
+                        @can('siparisleri-goruntuleyebilir')
+                        <a class="collapse-item" href="cards.html">Siparişler</a>                            
+                        @endcan                        
                     </div>
                 </div>
             </li>
-            @endhasanyrole
+            @endcanany
+            {{-- @endhasanyrole --}}
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            @hasanyrole(['yonetici', 'blog-yoneticisi'])
+            <!-- Blog -->
+            {{-- @hasanyrole(['yonetici', 'blog-yoneticisi']) --}}
+            @canany(['yazilari-goruntuleyebilir', 'yazi-kategorilerini-gorebilir'])
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
@@ -85,15 +92,18 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <h6 class="collapse-header">Blog Yönetimi</h6>
+                        @can('yazilari-goruntuleyebilir')
+                        <a class="collapse-item" href="utilities-color.html">Yazılar</a>
+                        @endcan
+                        @can('yazi-kategorilerini-gorebilir')
+                        <a class="collapse-item" href="utilities-border.html">Kategoriler</a>
+                        @endcan                        
                     </div>
                 </div>
             </li>
-            @endhasanyrole
+            @endcanany
+            {{-- @endhasanyrole --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider">
